@@ -52,13 +52,20 @@ $(document).ready(function () {
     // Prevent the default anchor behavior
     e.preventDefault();
 
+    // Get the target section ID from the href attribute
+    var target = $(this).attr("href");
+
     // Animate the scroll to the section
     $("html, body").animate(
       {
         scrollTop: $($(this).attr("href")).offset().top,
       },
       500,
-      "linear"
+      "linear",
+      function() {
+        // Update the URL hash after scrolling completes
+        history.pushState(null, null, target);
+      }
     );
   });
 });
